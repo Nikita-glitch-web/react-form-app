@@ -1,57 +1,113 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import style from "./SignupForm.module.css";
-import Email from "./Email";
+import LastName from "./LastName";
 import FirstName from "./FirstName";
 import Phone from "./Phone";
 import Image from "./Image";
 import Loading from "./Loading";
 import Button from "./Button";
-import validate from "../utils/validate";
+import Description from "./Description";
+import Error from "./Error"
+//import validate from "../utils/validate";
 
-
+const API_URL =
+  "https://wa-server-2-d6303887a0d7.herokuapp.com/api/v1/team-members/join";
 
 function SignupForm() {
   const [isSubmitted, setSubmitted] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  //if (validate = true) {} зробить валідацію через if 
+  const [isError, setError] = useState(false);
+  //if (validate === true) {} зробить валідацію через if
+  // нові інпути додати
+  function sendData(values) {
+    // const formData = new FormData(SignupForm); в данному випадку це не треба бо формік все робить
+    fetch(API_URL, {
+      method: "POST",
+      body: JSON.stringify(values),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.status !== 200) {
+          throw "not works";
+        }
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        setSubmitted(true);
+        console.log(data);
+      })
+      .catch((error) => {
+        setError(error);
+        console.error(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
   const formik = useFormik({
     initialValues: {
-      email: "",
+      lastName: "",
       firstName: "",
       phone: "",
+      description: ""
     },
-    validate,
+    validateOnChange: false, // this one
+    validateOnBlur: false, // and this one
     onSubmit: (values) => {
-      // додати isLoading через сетТаймАут
-      setTimeout(() => {
-        setLoading(true);
-      }, 3000)
-      setTimeout(() => {
-        setSubmitted(true);
-      }, 2000);
-      // const img = document.createElement("img");
-      // img.src = "src/images/success-image.png";
-      //parent.appendChild(p);
+      setLoading(true);
+      sendData(values);
+      console.log(values);
     },
   });
   console.log("works");
   if (isLoading) {
-    return <Loading />
+    return <Loading />;
   }
+
+  if (isError) {
+    return <Error />
   
+  }
+
   if (isSubmitted) {
-    return <Image />  
+    return <Image />;
   }
 
   return (
     <form className={style.root} onSubmit={formik.handleSubmit}>
-      <Email formik={formik} />
+      <LastName formik={formik} />
       <FirstName formik={formik} />
       <Phone formik={formik} />
+      <Description formik={formik} />
       <Button />
     </form>
   );
 }
 
 export default SignupForm;
+
+// celsiusRequest() {
+//   fetch(
+//     `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${this.coordinates.lat}&lon=${this.coordinates.lon}&appid=103d2bea1f0fea90b85f7ca4c51dcc4f`,
+//     {
+//       method: "GET",
+//     }
+//   )
+//   .then((res) => {
+//     return res.json();
+//   })
+//   .then((responseData) => {
+//     console.log(responseData);
+//     this.data = parseWeatherResponse(responseData);
+//     console.log(this.data);
+//     this.renderCurrentWeather();
+//   });
+// }
+
+// setTimeout(() => {
+
+// }, 4000);

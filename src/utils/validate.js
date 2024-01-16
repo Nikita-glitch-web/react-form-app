@@ -5,12 +5,10 @@ const validate = (values) => {
   //const validationStyle = validate.style;
   const errors = {};
   //const validateStyle = style;
-
-  if (!values.email) {
-  } else if (
-    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-  ) {
-    errors.email = "Invalid email address";
+  if (!values.lastName) {
+    errors.lastName = "Required";
+  } else if (values.lastName.length < 5) {
+    errors.lastName = "Must be 5 characters or more";
   }
 
   if (!values.firstName) {
@@ -25,7 +23,13 @@ const validate = (values) => {
     errors.phone = "Must to be 15 numbers";
   } 
 
-  console.log(errors.email);
+  if (!values.description) {
+    errors.description = "Required";
+  } else if (values.description.length < 12) {
+    errors.description = "Must to be more than 4 words";
+  } 
+
+  console.log(errors);
 
   //validate.classList.add("validation-text");
 

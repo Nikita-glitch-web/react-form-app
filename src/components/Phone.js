@@ -18,7 +18,11 @@ function Phone(props) {
           value={props.formik.values.phone}
         />
         {props.formik.errors.phone ? (
-          <div>{props.formik.errors.phone}</div>
+          <div>
+            <h1 className={style.validation_text}>
+              {props.formik.errors.phone}
+            </h1>
+          </div>
         ) : null}
       </div>
     );

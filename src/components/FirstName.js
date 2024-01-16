@@ -16,7 +16,7 @@ function FirstName(props) {
            value={props.formik.values.firstName}
          />
          {props.formik.errors.firstName ? (
-           <div>{props.formik.errors.firstName}</div>
+           <div><h1 className={style.validation_text}>{props.formik.errors.firstName}</h1></div>
          ) : null}
        </div>
      );
