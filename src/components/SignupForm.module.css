@@ -6,13 +6,13 @@
 }
 
 .input_wrapper {
-    padding: 20px;
+    padding-top: 30px;
     background: white;
     width: 100%;
 }
 
 .input {
-    width: 100%;
+    width: 335px;
     height: 54px;
     border: 1px solid #D0CFCF;
     border-radius: 4px;
@@ -31,6 +31,7 @@
     border-radius: 45px;
     font-size: 17px;
     color: white;
+    margin-top: 35px;
 }
 
 .validation_text {

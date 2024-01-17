@@ -1,16 +1,18 @@
 import React from "react";
 // import ReactDOM from "react-dom/client";
 import style from "./Error.module.css";
+// import SignupForm from "./SignupForm";
 
-
-function Image() {
+function Error() {
   return (
     <div className={style.error_wrapper}>
       <div>
         <h2 className={style.error_title}>Error</h2>
       </div>
       <div>
-        <button className={style.error_button}>GO back</button>
+        <button className={style.error_button}>
+          Go back
+        </button>
       </div>
     </div>
   );
@@ -19,6 +21,15 @@ function Image() {
 // const el = document.getElementById("Image");
 // const image = ReactDOM.createRoot(el);
 
-// image.render(<Image />);
+// let GoBack = function () {
+//     //здесь можно добавить обработку какой-нибудь логики, при желании
+//     // return (
+//     //     <SignupForm />
+//     // )
+//     window.history.back(1);
+//     console.log(onclick)
+// };
 
-export default Image;
+// GoBack();
+
+export default Error;

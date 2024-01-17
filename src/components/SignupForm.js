@@ -8,8 +8,7 @@ import Image from "./Image";
 import Loading from "./Loading";
 import Button from "./Button";
 import Description from "./Description";
-import Error from "./Error"
-//import validate from "../utils/validate";
+import Error from "./Error";
 
 const API_URL =
   "https://wa-server-2-d6303887a0d7.herokuapp.com/api/v1/team-members/join";
@@ -50,10 +49,10 @@ function SignupForm() {
   }
   const formik = useFormik({
     initialValues: {
-      lastName: "",
       firstName: "",
+      lastName: "",
       phone: "",
-      description: ""
+      description: "",
     },
     validateOnChange: false, // this one
     validateOnBlur: false, // and this one
@@ -68,10 +67,15 @@ function SignupForm() {
     return <Loading />;
   }
 
-  if (isError) {
+  function pageChanger () {
+  if (isError === true) {
     return <Error />
-  
+  } else {
+    return <SignupForm />
   }
+  }
+
+  pageChanger()
 
   if (isSubmitted) {
     return <Image />;
@@ -79,10 +83,10 @@ function SignupForm() {
 
   return (
     <form className={style.root} onSubmit={formik.handleSubmit}>
-      <LastName formik={formik} />
       <FirstName formik={formik} />
-      <Phone formik={formik} />
+      <LastName formik={formik} />
       <Description formik={formik} />
+      <Phone formik={formik} />
       <Button />
     </form>
   );
