@@ -19,7 +19,7 @@ const validate = (values) => {
 
   if (!values.phone) {
     errors.phone = "Required";
-  } else if (values.phone.length < 15) {
+  } else if (values.phone.length < 9) {
     errors.phone = "Must to be 15 numbers";
   } 
 

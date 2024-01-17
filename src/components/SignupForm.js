@@ -9,6 +9,7 @@ import Loading from "./Loading";
 import Button from "./Button";
 import Description from "./Description";
 import Error from "./Error";
+import validate from "../utils/validate";
 
 const API_URL =
   "https://wa-server-2-d6303887a0d7.herokuapp.com/api/v1/team-members/join";
@@ -54,32 +55,54 @@ function SignupForm() {
       phone: "",
       description: "",
     },
+    validate,
     validateOnChange: false, // this one
     validateOnBlur: false, // and this one
     onSubmit: (values) => {
-      setLoading(true);
+      setSubmitted(true);
       sendData(values);
+      setLoading(true);
       console.log(values);
+      pageChanger();
     },
   });
-  console.log("works");
-  if (isLoading) {
-    return <Loading />;
+
+  function pageChanger() {
+    if (isError === true) {
+      return <Error />;
+    }
+
   }
 
-  function pageChanger () {
-  if (isError === true) {
-    return <Error />
-  } else {
-    return <SignupForm />
-  }
-  }
+   if (isLoading) {
+     return <Loading />;
+   }
+
+    if (isSubmitted) {
+      return <Image />;
+    }
+      
+
+ 
+
+  // if (isSubmitted) {
+  //     <Image />;
+  // }
+
+
+    
+  console.log("works");
+
+
+  console.log(pageChanger)
+
+ 
 
   pageChanger()
 
-  if (isSubmitted) {
-    return <Image />;
-  }
+  // if (isSubmitted) {
+  //   return <Image />;
+  // }
 
   return (
     <form className={style.root} onSubmit={formik.handleSubmit}>
