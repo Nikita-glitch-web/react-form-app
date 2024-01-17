@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import style from "./SignupForm.module.css";
-import LastName from "./LastName";
 import FirstName from "./FirstName";
+import LastName from "./LastName";
+import Description from "./Description";
 import Phone from "./Phone";
 import Image from "./Image";
 import Loading from "./Loading";
 import Button from "./Button";
-import Description from "./Description";
 import Error from "./Error";
 import validate from "../utils/validate";
 
@@ -21,6 +21,7 @@ function SignupForm() {
   //if (validate === true) {} зробить валідацію через if
   // нові інпути додати
   function sendData(values) {
+    console.log(values)
     // const formData = new FormData(SignupForm); в данному випадку це не треба бо формік все робить
     fetch(API_URL, {
       method: "POST",
@@ -31,7 +32,7 @@ function SignupForm() {
     })
       .then((res) => {
         if (res.status !== 200) {
-          throw "not works";
+          throw "this shit doesnt work";
         }
         console.log(res);
         return res.json();
@@ -41,7 +42,7 @@ function SignupForm() {
         console.log(data);
       })
       .catch((error) => {
-        setError(error);
+        setError(true);
         console.error(error);
       })
       .finally(() => {
@@ -61,44 +62,44 @@ function SignupForm() {
     onSubmit: (values) => {
       setSubmitted(true);
       sendData(values);
-      setLoading(true);
+      setLoading(false);
       console.log(values);
-      pageChanger();
+      setError(true);
     },
   });
 
-  function pageChanger() {
-    if (isError === true) {
-      return <Error />;
-    }
 
-  }
 
    if (isLoading) {
      return <Loading />;
    }
 
+   console.log(isLoading)
+
     if (isSubmitted) {
       return <Image />;
-    }
       
+    }
 
- 
+    console.log(isSubmitted);
 
-  // if (isSubmitted) {
-  //     <Image />;
-  // }
-
+    function pageChanger() {
+      
+      if (isError === true) {
+        return <Error />;
+      }
+      console.log(isError);
+    }
+    
+    pageChanger(true);
 
     
   console.log("works");
 
 
-  console.log(pageChanger)
+  
 
  
-
-  pageChanger()
 
   // if (isSubmitted) {
   //   return <Image />;

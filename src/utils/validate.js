@@ -26,7 +26,7 @@ const validate = (values) => {
   if (!values.description) {
     errors.description = "Required";
   } else if (values.description.length < 12) {
-    errors.description = "Must to be more than 4 words";
+    errors.description = "Must to be more 10 letters";
   } 
 
   console.log(errors);
